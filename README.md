@@ -6,7 +6,7 @@
 
 - [ ] SQL Injection (WIP Ruben)
 
-- [x] XSS
+- [x] _[XSS (Reflected) vulnerability](./XSS/XSS.md)_
 
 - [ ] CSRF
 
