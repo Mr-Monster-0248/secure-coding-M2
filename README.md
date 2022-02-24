@@ -4,9 +4,9 @@
 
 - [ ] IDOR
 
-- [ ] SQL Injection
+- [ ] SQL Injection (WIP Ruben)
 
-- [ ] XSS (Ruben)
+- [ ] XSS (WIP Ruben)
 
 - [ ] CSRF
 
