@@ -6,7 +6,7 @@
 
 - [ ] SQL Injection
 
-- [ ] XSS
+- [ ] XSS (Ruben)
 
 - [ ] CSRF
 
