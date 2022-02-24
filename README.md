@@ -1,6 +1,10 @@
 # secure-coding-M2
 
-### TODO
+Repository for the Secure Coding project. By Thibault LEPEZ & Ruben NABET.
+
+## Vulnerabilities
+
+You can find the write-ups/reports and project files for each vulnerability here:
 
 - [ ] IDOR
 
