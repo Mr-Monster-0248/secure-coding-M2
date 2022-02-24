@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unsafe XSS - Result</title>
+</head>
+<body>
+  <script>
+    window.onload = () => {
+      // Retrieve the parameters from the URL
+      const url = new URL(window.location.href.toLowerCase());
+      const searchResult = url.searchParams.get("search");
+
+      // Retrieve the HTMLElement to append the result to
+      const resultElement = document.getElementById("search-result");
+
+      // Append result to element
+      resultElement.innerHTML = `${searchResult}`; // innerHTML (DANGEROUS - no sanitization !)
+    }
+  </script>
+
+  <h2>Unsafe search result :</h2>
+
+  <br>
+
+  <p id="search-result"></p>
+</body>
+</html>

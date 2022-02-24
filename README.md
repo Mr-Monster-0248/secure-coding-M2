@@ -6,7 +6,7 @@
 
 - [x] _[SQL Injection](./SQL-injection/README.md)_
 
-- [ ] XSS (WIP Ruben)
+- [x] _[XSS (Reflected) vulnerability](./XSS/README.md)_
 
 - [ ] CSRF
 
