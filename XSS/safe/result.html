@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Safe XSS - Result</title>
+</head>
+<body>
+  <script>
+    window.
+    window.onload = () => {
+      const url = new URL(window.location.href.toLowerCase());
+      const searchResult = url.searchParams.get("search");
+
+      const resultElement = document.getElementById('search-result');
+
+      // textContent instead of innerHTML (sanitize input)
+      resultElement.textContent = `${searchResult}`;
+    }
+  </script>
+
+  <h2>Safe search result :</h2>
+
+  <br>
+
+  <p id="search-result"></p>
+</body>
+</html>

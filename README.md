@@ -6,7 +6,7 @@
 
 - [ ] SQL Injection (WIP Ruben)
 
-- [ ] XSS (WIP Ruben)
+- [x] XSS
 
 - [ ] CSRF
 
