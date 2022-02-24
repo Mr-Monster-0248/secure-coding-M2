@@ -4,7 +4,7 @@
 
 - [ ] IDOR
 
-- [ ] SQL Injection (WIP Ruben)
+- [x] _[SQL Injection](./SQL-injection/README.md)_
 
 - [ ] XSS (WIP Ruben)
 
