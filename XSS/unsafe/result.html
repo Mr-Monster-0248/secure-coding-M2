@@ -8,15 +8,16 @@
 </head>
 <body>
   <script>
-    window.
     window.onload = () => {
+      // Retrieve the parameters from the URL
       const url = new URL(window.location.href.toLowerCase());
       const searchResult = url.searchParams.get("search");
 
-      const resultElement = document.getElementById('search-result');
+      // Retrieve the HTMLElement to append the result to
+      const resultElement = document.getElementById("search-result");
 
-      // innerHTML (dangerous !)
-      resultElement.innerHTML = `${searchResult}`;
+      // Append result to element
+      resultElement.innerHTML = `${searchResult}`; // innerHTML (DANGEROUS - no sanitization !)
     }
   </script>
 
