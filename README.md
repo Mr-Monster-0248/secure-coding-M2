@@ -6,7 +6,7 @@ Repository for the Secure Coding project. By Thibault LEPEZ & Ruben NABET.
 
 You can find the write-ups/reports and project files for each vulnerability here:
 
-- [ ] IDOR
+- [x] _[IDOR](./IDOR/README.md)_
 
 - [x] _[SQL Injection](./SQL-injection/README.md)_
 
