@@ -1,18 +1,18 @@
 # IDOR (Insecure Direct Object Reference)
 
-We made custom NodeJs servers to showcase the IDOR vulnerability. The IDOR vulnerability consist on accessing data that we should not be able to be fetching direction the document with no verification.
+We made custom Node.js servers to showcase the IDOR vulnerability. The IDOR vulnerability consist in accessing data that should not be able to be accessible, by fetching directly the data from the URL with no verification.
 
-## Run the project
+## Run the app
 
-The project use the monorepo technologie, therefor you can run both server form the the main `package.json` file
+The app uses the monorepo technology, therefore you can run both server form the single main `package.json` file at the root of this directory.
 
-- run the **unsafe** version
+- run the **unsafe** application:
 
 ```shell
 npm run start --workspace=unsafe
 ```
 
-- run the **safe** version
+- run the **safe** application:
 
 ```shell
 npm run start --workspace=safe
@@ -22,7 +22,7 @@ npm run start --workspace=safe
 
 ### Base of the server
 
-The server serve a classic login page
+The server serves a classic login page:
 
 ![login page](./img/index.png)
 
@@ -35,44 +35,41 @@ The database is represented as such:
 
 ### Point of failure
 
-Once the user log in correctly with the correct username and password. He is redirected to this page
+Once the user logs in correctly with the correct username and password, they get redirected to this page:
 
 ![user 1 page](./img/user1-page.png)
 
-We then can see that the path is `/user/[userid]` even without knowing what happend in the backend we can imagine that some other user would have the same page with just a different `userId`
+We can see that the path here is `/user/[userid]`. Even without knowing what happened in the backend, we can imagine that some other user would be served the same page, but with just a different `userId` value.
 
-If we try to access `/user/2`
+However, if we try to access `/user/2`, this is what happens:
 
 ![user 2 page](./img/user2-page.png)
 
-**Banco ! You now have access to the other user data**
+**Banco ! We now have access to another user's data which we should not have access to.**
 
 ## The safe sever
 
 ### How to improve security ?
 
-There is two main way to increase the security and avoid the IDOR vulneranility
+There are two main ways to increase the security of the app and avoid the IDOR vulnerability:
 
-- The `id` (in our exemple but any path that display data) should be a non-predictable number or string
-  - using following integer can be predictable
-  - using strings with too much sens as `admin` or `private` can be considered as a potential IDOR vulnerability
-- The second and most important way to prevent the IDOR vulnerability is to secure those routes.
-  - You may use sessions or cookies, or any other authentication
+- The `id` (or any resource identifier) should be a non-predictable number or string because:
+  - using sequential integers can be very predictable,
+  - using strings that are too "transparent" (like `admin` or `private`) can lead to an IDOR vulnerability.
+- The second and most important way to prevent the IDOR vulnerability is to **secure those routes**, using either sessions or cookies for example, or any other means of authentication.
 
 ### Our improvement
 
-For our project we have used the session as a way to make sure the user is authenticated.
+For our solution, we used sessions as a way to make sure the users are authenticated. We also changed the resource identifiers (the user IDs) to random strings.
 
-And we have also changed the user's id to an random string
-
-The new fake database beeing :
+The database now looks like this:
 
 |      id      | username | password |
 | :----------: | -------- | -------- |
 | ASDFrfeqrQre | thibault | qwerty   |
 | asQWefASdFRq | ruben    | azerty   |
 
-With the use of session we have:
+Using sessions, we now have this:
 
 ```javascript
 app.get('/', (req, res) => {
@@ -83,9 +80,9 @@ app.get('/', (req, res) => {
 });
 ```
 
-Here for the `/` path we see that if the session has already been set the user is redirected to the user's page
+Here, for the `/` path, we see that if the session has already been set, the user automatically gets redirected to their own page.
 
-For the user page we have this code:
+After updating the `/user/:id` route handler, it now looks like this:
 
 ```javascript
 app.get('/user/:id', (req, res) => {
@@ -106,10 +103,10 @@ app.get('/user/:id', (req, res) => {
 });
 ```
 
-We check if the user session match the user data he is trying to reach. And if it's not we redirect to the `/`
+What happens here is we check whether the user session matches the user data they are trying to reach. If it doesn't, we simply redirect them to `/`.
 
-If the user `ASDFrfeqrQre` try to reach `/user/asQWefASdFRq` he will be redirected
+For example: if the user with the ID `ASDFrfeqrQre` tries to reach the resource `/user/asQWefASdFRq`, they will be redirected to `/user/ASDFrfeqrQre`.
 
 ![redirection](./img/network-changes.png)
 
-**Your data is now safe**
+**Re-banco ! The data is now safe.**
