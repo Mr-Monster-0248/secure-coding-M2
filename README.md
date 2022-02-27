@@ -12,7 +12,7 @@ You can find the write-ups/reports and project files for each vulnerability here
 
 - [x] _[XSS (Reflected) vulnerability](./XSS/README.md)_
 
-- [ ] CSRF
+- [ ] _[CSRF](./XSRF/README.md)_
 
 - [ ] Web Cache Poisoning
 
