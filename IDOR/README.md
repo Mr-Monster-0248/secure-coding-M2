@@ -2,7 +2,7 @@
 
 We made custom Node.js servers to showcase the IDOR vulnerability. The IDOR vulnerability consist in accessing data that should not be able to be accessible, by fetching directly the data from the URL with no verification.
 
-## Run the app
+## Running the app
 
 The app uses the monorepo technology, therefore you can run both server form the single main `package.json` file at the root of this directory.
 
