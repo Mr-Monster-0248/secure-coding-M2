@@ -4,7 +4,8 @@ We made very basic custom Node.js Express apps to showcase the CSRF vulnerabilit
 
 ## Installing the app
 
-The app uses the monorepo technology, so only one installation is required. At the root of this directory, run:
+The app uses the monorepo technology, so only one installation is required.
+To install, go to the root of this directory and run:
 
 ```shell
 npm install
@@ -12,16 +13,24 @@ npm install
 
 ## Running the app
 
-- Run the **unsafe** application:
+Here are the steps to run the app:
+
+1. In a terminal from the root of this directory, run the malicious server:
 
 ```shell
-npm run start --workspace=malicious-website --workspace=unsafe
+npm run malicious
 ```
 
-- Run the **safe** application:
+2. Then, **_in another terminal_** in the same directory, run the **unsafe** application:
 
 ```shell
-npm run start --workspace=malicious-website --workspace=safe
+npm run unsafe
+```
+
+3. Or, **_in another terminal_** in the same directory, run the **safe** application:
+
+```shell
+npm run safe
 ```
 
 ## General

@@ -1,5 +1,5 @@
 {
-  "name": "sql-injection-unsafe",
+  "name": "unsafe",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -9,13 +9,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@databases/sqlite": "^3.0.0",
-    "body-parser": "^1.19.2",
-    "express": "^4.17.3"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  }
+  "license": "ISC"
 }

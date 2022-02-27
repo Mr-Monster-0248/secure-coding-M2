@@ -2,16 +2,24 @@
 
 For this vulnerability we went with a very basic Node.js back-end application with a local SQLite database.
 
-To install, go to either `SQL-injection/safe` or `SQL-injection/unsafe` and run :
+To install, go to the root of this directory and run :
 
 ```shell
 npm install
 ```
 
-After that, to run the app, just run :
+## Run the app
+
+- To run the **unsafe** app, just run :
 
 ```shell
-npm run start
+npm run unsafe
+```
+
+- To run the **safe** app, just run :
+
+```shell
+npm run safe
 ```
 
 ## Unsafe application
