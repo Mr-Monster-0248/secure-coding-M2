@@ -19,7 +19,7 @@ app.post('/users', async (req, res) => {
 
   // Constructing the SQL query to run
   const safeQuery = sql`SELECT * FROM users WHERE (id = ${data.id});`;
-  // Equivalent to => { text: 'SELECT * FROM users WHERE (id = $1)', values: [data.id] };
+  // Equivalent to => { text: 'SELECT * FROM users WHERE (id = $1)', values: [data.id] }
 
   // Running the SQL query
   const result = await db.query(safeQuery);
