@@ -14,6 +14,6 @@ You can find the write-ups/reports and project files for each vulnerability here
 
 - [x] _[CSRF](./CSRF/README.md)_
 
-- [x] Web Cache Poisoning
+- [x] _[Web Cache Poisoning](./web-cache-poisoning/README.md)_
 
-- [ ] Unvalidated Redirects and Forwards
+- [x] _[Unvalidated Redirects and Forwards](./unvalidated-redirection-and-forwarding/README.md)_
