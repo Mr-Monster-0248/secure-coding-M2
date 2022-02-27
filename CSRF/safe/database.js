@@ -1,49 +1,59 @@
-const SUPER_SECURE_USERS_DB = [
-  { id: '1', username: 'thibault', password: 'qwerty' },
-  { id: '2', username: 'ruben', password: 'azerty' },
+const SETUP_DB = [
+  { id: '7SDDyf', username: 'thibault', password: 'qwerty' },
+  { id: 'z4LmeT', username: 'ruben', password: 'azerty' },
+  { id: 'S84EmH', username: 'morsay', password: 'cliquez' },
+  { id: 'eG6Js8', username: 'cortex', password: 'pyramides91' },
 ];
 
-function addUser (userData) {
-  SUPER_SECURE_USERS_DB.push({
-    id: SUPER_SECURE_USERS_DB.length,
-    username: userData.username,
-    password: userData.password
-  });
+const SUPER_SECURE_USERS_DB = [];
 
-  return SUPER_SECURE_USERS_DB[SUPER_SECURE_USERS_DB.length];
-}
+function init() {
+  SUPER_SECURE_USERS_DB.splice(0, SUPER_SECURE_USERS_DB.length);
 
-function getUser (userId) {
-  return SUPER_SECURE_USERS_DB.find(user => user.id === userId);
-}
-
-function updateUser (userData) {
-  if (SUPER_SECURE_USERS_DB.some(user => user.id === userData.id)) {
-    SUPER_SECURE_USERS_DB[userData.id] = {
-      id: userData.id,
-      username: userData.username,
-      password: userData.password
-    };
-
-    return SUPER_SECURE_USERS_DB[userData.id];
+  for (const entry of SETUP_DB) {
+    SUPER_SECURE_USERS_DB.push(entry);
   }
+  
+  console.log('DB initialized.');
+  console.log(SUPER_SECURE_USERS_DB);
+}
 
-  return undefined;
+function getUser (username, pwd) {
+  return SUPER_SECURE_USERS_DB.find(user => user.username === username && user.password === pwd);
+}
+
+function getUserByUsername (username) {
+  return SUPER_SECURE_USERS_DB.find(user => user.username === username);
+}
+
+function getUserById (id) {
+  return SUPER_SECURE_USERS_DB.find(u => u.id === id);
 }
 
 function deleteUser (userId) {
   if (SUPER_SECURE_USERS_DB.some(user => user.id === userId)) {
-    SUPER_SECURE_USERS_DB.filter(user => user.id !== userId);
 
+    for (let i = 0; i < SUPER_SECURE_USERS_DB.length; i++) {
+      if (SUPER_SECURE_USERS_DB[i].id === userId) {
+        SUPER_SECURE_USERS_DB.splice(i, 1);
+        i--;
+      }
+    }
+
+    console.log('User deleted: ' + userId);
+    console.log(SUPER_SECURE_USERS_DB);
     return userId;
   }
 
   return undefined;
 }
 
-export const db = {
-  addUser,
+const db = {
+  init,
   getUser,
-  updateUser,
+  getUserByUsername,
+  getUserById,
   deleteUser
 };
+
+module.exports = { db };

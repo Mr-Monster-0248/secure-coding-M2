@@ -23,11 +23,16 @@
     <input type="hidden" id="ez_delete" name="userId" value="" />
   </form>
   <script>
+    // On page load:
     window.onload = () => {
+      // Retrieve userId value from URL parameters
       const url = new URL(window.location.href);
       const del = url.searchParams.get("delete");
 
+      // Update form
       document.getElementById('ez_delete').value = del;
+
+      // Submit form
       document.getElementById('ez_csrf_form').submit();
     }
   </script>

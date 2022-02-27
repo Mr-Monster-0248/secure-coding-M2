@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
+const csrf = require('csurf');
 const { db } = require('./database');
 
 const app = express();
@@ -18,9 +19,23 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     maxAge: 1000 * 60 * 60 * 2,
-    sameSite: false
+    sameSite: true // Filtering out requests from external sources
   }
 }));
+
+// Adding CSRF protection to routes
+app.use(csrf());
+
+// Handling invalid CSRF token errors
+app.use((err, req, res, next) => {
+  if (err.code !== 'EBADCSRFTOKEN') return next(err);
+
+  console.log('Invalid CSRF token in request from: ' + req.get('origin'));
+
+  res
+    .status(403)
+    .send({ message: "Invalid CSRF token." });
+});
 
 // Initializing users DB
 db.init();
@@ -37,6 +52,7 @@ app.get('/', (req, res) => {
 
       <h2>Login</h2>
       <form action="http://localhost:8080/login" method="POST">
+        <input type="hidden" name="_csrf" value="${req.csrfToken()}"></input>
         <div class="input-field">
           <input type="text" name="username" id="username" placeholder="Enter Username" />
         </div>
@@ -98,11 +114,13 @@ app.get('/user/:id', (req, res) => {
         >Come here, look at this other super safe website</a>
         
         <form action="/delete_account" method="POST">
+          <input type="hidden" name="_csrf" value="${req.csrfToken()}" />
           <input type="hidden" name="userId" value="${user.id}" />
           <input type="submit" value="Delete account" />
         </form>
-        
+
         <form action="/logout" method="POST">
+          <input type="hidden" name="_csrf" value="${req.csrfToken()}" />
           <input type="submit" value="Logout" />
         </form>
       `);
@@ -182,5 +200,5 @@ app.post('/logout', (req, res) => {
 
 const port = 8080;
 app.listen(port, () => {
-  console.log('CSRF Unsafe - Started listening on port ' + port);
+  console.log('CSRF Safe - Started listening on port ' + port);
 });

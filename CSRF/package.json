@@ -8,9 +8,9 @@
   "author": "",
   "license": "ISC",
   "workspaces": [
+    "malicious-website",
     "safe",
-    "unsafe",
-    "malicious-website"
+    "unsafe"
   ],
   "dependencies": {
     "cors": "^2.8.5",
