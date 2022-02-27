@@ -1,7 +1,7 @@
 # XSS Vulnerability
 
 We made custom files to showcase a vulnerable webpage and a non-vulnerable webpage.
-We are using **reflected** XSS.
+Here, we are showcasing **reflected** XSS.
 
 ## The unsafe version
 
