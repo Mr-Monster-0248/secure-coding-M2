@@ -12,8 +12,8 @@ You can find the write-ups/reports and project files for each vulnerability here
 
 - [x] _[XSS (Reflected) vulnerability](./XSS/README.md)_
 
-- [ ] _[CSRF](./XSRF/README.md)_
+- [x] _[CSRF](./CSRF/README.md)_
 
-- [ ] Web Cache Poisoning
+- [x] Web Cache Poisoning
 
 - [ ] Unvalidated Redirects and Forwards
