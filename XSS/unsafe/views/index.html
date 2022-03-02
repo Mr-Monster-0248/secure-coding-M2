@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Safe XSS - Search</title>
+  <title>Unsafe XSS - Search</title>
 </head>
 <body>
-  <h1>Welcome to my safe search page !</h1>
+  <h1>Welcome to my unsafe search page !</h1>
 
   <br>
     <code>&lt;script&gt;alert('XSS test');&lt;/script&gt;</code>
   <br>
 
   <h2>Write your search here :</h2>
-  <form action="./result.html">
+  <form action="http://localhost:3000/result" method="post">
     <input type="search" name="search" placeholder="Your message">
     <input type="submit" />
   </form>

@@ -1,0 +1,21 @@
+{
+  "name": "xss",
+  "version": "1.0.0",
+  "description": "We made custom files to showcase a vulnerable webpage and a non-vulnerable webpage. Here, we are showcasing **reflected** XSS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "safe",
+    "unsafe"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
