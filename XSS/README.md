@@ -1,104 +1,126 @@
 # XSS Vulnerability
 
-We made custom files to showcase a vulnerable webpage and a non-vulnerable webpage.
+We made very basic custom Node.js apps to showcase a vulnerable webpage and a non-vulnerable webpage.
 Here, we are showcasing **reflected** XSS.
+
+## Installing the app
+
+The app uses monorepo technology, so only one installation is required.
+To install, go to the root of this directory and run:
+
+```shell
+npm install
+```
+
+## Running the app
+
+To run the **unsafe** app, at the root of this directory, just run:
+
+```shell
+npm run unsafe
+```
+
+To run the **safe** app, at the root of this directory, just run:
+
+```shell
+npm run safe
+```
+
+Once everything is installed and the app is running, the page is accessible at this URL:
+
+http://localhost:3000/
 
 ## The unsafe version
 
-To see the unsafe webpage, _[click here](./unsafe/search.html)_.
+### Base of the server
 
-### The search page
+The unsafe version serves a very basic form page like this:
 
-The **search** page is only a simple form like this :
+![Search page](./img/search-page.png)
 
-```html
-<form action="./result.html">
-  <input type="search" name="search" placeholder="Your message" />
-  <input type="submit" />
-</form>
-```
+The form action sends the value of the search input as URL parameters to a result page.
 
-The form action sends the value of the search input as URL parameters to _[the resut.html](./unsafe/result.html)_ page.
-
-### The result page
+### Point of failure
 
 The **result** page is only a simple page that is meant to display the search value.
 
-The search value is retrieved from the provided URL parameters.
-This happens through a script that runs when the page loads :
+The search value is retrieved from the provided URL parameters, here:
 
 ```js
-window.onload = () => {
-  // Retrieve the parameters from the URL
-  const url = new URL(window.location.href.toLowerCase());
-  const searchResult = url.searchParams.get("search");
+app.post("/result", (req, res) => {
+  // Unsafe input recuperation - no sanitizing
+  const displayResult = req.body.search;
 
-  // Retrieve the HTMLElement to append the result to
-  const resultElement = document.getElementById("search-result");
-
-  // Append result to element
-  resultElement.innerHTML = `${searchResult}`; // innerHTML (DANGEROUS - no sanitization !)
-};
+  res.send(`
+    <h2>Unsafe search result :</h2>
+    <br>
+    <p>${displayResult}</p>
+  `);
+});
 ```
 
-The issue here come from the `innerHTML` attribute, which does not sanitize the inputs. Therefore, it only appends the raw string data without escaping any characters.
+The issue here comes from the direct copy of the request parameter into the result page, without sanitizing any of the inputs.
+Therefore, it only appends the raw string data without escaping any characters.
 
-As a result, we can easily provide a malicious script through the search parameter:<br>
+As a result, we can easily provide a malicious script through the search parameter:
+
 ![Malicious unsafe search](./img/unsafe-search.png)
 
-The malicious script is passed as URL params:<br>
-![Malicious URL](./img/unsafe-url.png)
+The malicious script is then passed in the request parameters, and as expected, the malicious script runs once the result page is loaded:
 
-As expected, the malicious script runs:<br>
 ![Malicious script running](./img/unsafe-result.png)
 
-This is because the malicious script was appended to the page on load:<br>
-![Malicious script appended on load](./img/unsafe-elements.png)
+This is because the malicious script was appended to the page when the POST request was recieved by the server.
 
 ## The safe version
 
-To see the safe webpage, _[click here](./safe/search.html)_.
+### How to improve security ?
 
-### The search page
+When handling user inputs, it is very (very very) recommended to sanitize the inputs you recieve from your users.
+This serves two purposes:
 
-The **search** page also only contains a simple form, it is **the exact same as the unsafe search page**.
+- It ensures that the data you recieve is valid, and can be used by your application without causing unexpected issues,
+- It helps greatly to prevent XSS exploits on your app.
 
-The form action still sends the value of the search input as URL parameters to _[the resut.html](./safe/result.html)_ page in the same way as for the unsafe version.
+### Our improvement
 
-### The result page
+On our app, we implemented input sanitization to prevent XSS attacks.
 
-The **result** page is only a simple page that is meant to display the search value. It is the same as fot the unsafe version, except for a slight modification to the `window.onload` script.
-
-The search value is retrieved from the provided URL parameters.
-This happens through a script that runs when the page loads :
+The code responsible for the vulnerability now looks like this:
 
 ```js
-window.onload = () => {
-  // Retrieve the parameters from the URL
-  const url = new URL(window.location.href.toLowerCase());
-  const searchResult = url.searchParams.get("search");
+// Encode problematic characters to HTML code
+function sanitize(string) {
+  return string
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/"/g, "&quot;");
+}
 
-  // Retrieve the HTMLElement to append the result to
-  const resultElement = document.getElementById("search-result");
+app.post("/result", (req, res) => {
+  // Safer input recuperation - HTML code sanitization
+  const displayResult = sanitize(req.body.search);
 
-  // Append result to element
-  resultElement.textContent = `${searchResult}`; // textContent instead of innerHTML (sanitize input)
-};
+  res.send(`
+    <h2>Unsafe search result :</h2>
+    <br>
+    <p>${displayResult}</p>
+  `);
+});
 ```
 
-Now, the script uses `textContent` instead of `innerHTML`. The inputs are now sanitized because `textContent` escapes problematic characters to HTML character codes.
+We added a very basic function called `sanitizeHTML` which takes care of escping the HTML characters in a given string.
 
-As a result, the malicious script provided through the search parameter doesn't run on the page anymore:<br>
+We then applied this function to the input we recieved from the user, and then we appended the processed string in our response.
+
+As a result, the malicious script provided through the search parameter doesn't run on the page anymore:
+
 ![Malicious safe search](./img/safe-search.png)
-
-The malicious script is still passed as URL params:<br>
-![Malicious URL](./img/safe-url.png)
 
 As expected, the malicious script doesn't run on the page:<br>
 ![Malicious script not running](./img/safe-result.png)
 
-The malicious script was still appended to the page on load, but with the characters escaped to a safe string:<br>
-![Malicious script appended on load](./img/safe-elements.png)
+The malicious script was still appended to the page, but it was first escaped to a safe string:.
 
 ## Conclusion
 

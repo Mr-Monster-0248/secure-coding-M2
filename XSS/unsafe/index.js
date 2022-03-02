@@ -12,10 +12,13 @@ app.get('/', (req, res) => {
 });
 
 app.post('/result', (req, res) => {
+  // Unsafe input recuperation - no sanitizing
+  const displayResult = req.body.search;
+
   res.send(`
     <h2>Unsafe search result :</h2>
     <br>
-    <p>${req.body.search}</p>
+    <p>${displayResult}</p>
   `)
 });
 
