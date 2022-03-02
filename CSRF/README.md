@@ -33,6 +33,10 @@ npm run unsafe
 npm run safe
 ```
 
+Once everything is installed and the app is running, the page is accessible at this URL:
+
+http://localhost:8080/
+
 ## General
 
 Before going in depth, here are a few informations. This POC is made of 3 separate apps:

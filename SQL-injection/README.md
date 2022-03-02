@@ -22,6 +22,10 @@ npm run unsafe
 npm run safe
 ```
 
+Once everything is installed and the app is running, the page is accessible at this URL:
+
+http://localhost:8080/
+
 ## Unsafe application
 
 The unsafe app is just a very basic [express.js](https://www.npmjs.com/package/express) API, with only one endpoint : `/users`.

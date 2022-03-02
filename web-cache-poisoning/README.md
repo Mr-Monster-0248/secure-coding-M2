@@ -11,6 +11,28 @@ Some servers or DNS resolvers use caching, meaning that they will store the resp
 
 The vulnerability consists in crafting a request that will make the server incorporate a malicious piece of code into the cached response. If your request headers end up being cached and reused for other responses you can imagine that the malicious code will be dispatched and executed on other clients.
 
+## Run the app
+
+### Installation
+
+To install the app, go to the root of this directory and run:
+
+```shell
+npm install
+```
+
+### Run the server
+
+To run the app, just run:
+
+```shell
+npm run start
+```
+
+Once everything is installed and the app is running, the server is accessible at this URL:
+
+http://localhost:8080/
+
 ## Our implementation of web cache poisoning
 
 To demonstrate the vulnerability we decided to build a web server with some server-side caching.

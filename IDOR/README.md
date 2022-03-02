@@ -9,14 +9,18 @@ The app uses the monorepo technology, therefore you can run both server form the
 - run the **unsafe** application:
 
 ```shell
-npm run start --workspace=unsafe
+npm run unsafe
 ```
 
 - run the **safe** application:
 
 ```shell
-npm run start --workspace=safe
+npm run safe
 ```
+
+Once everything is installed and the app is running, the page is accessible at this URL:
+
+http://localhost:3000/
 
 ## The unsafe server
 

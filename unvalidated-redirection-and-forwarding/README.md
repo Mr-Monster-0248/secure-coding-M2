@@ -24,23 +24,35 @@ This attack is often used in conjunction with a social engineering attack, and t
 
 ## Our implementation of the unvalidated redirection
 
+### Install the app
+
+To install the app, go to the root of this directory and run:
+
+```shell
+npm install
+```
+
 ### Runing our project
 
 To simulate this attack we have written two web servers, one evil and a trusted one. Of course the trusted one has the vulnerability for one of its endpoints.
 
 To run the simulation you will need to run both servers.
 
-#### Running the evil server:
+#### 1. Running the evil server:
 
 ```bash
 npm run evil
 ```
 
-#### Running the trusted server:
+#### 2. Running the trusted server:
 
 ```bash
 npm run trust
 ```
+
+Once everything is installed and the app is running, the page is accessible at this URL:
+
+http://localhost:8080/
 
 ### The simulation
 
