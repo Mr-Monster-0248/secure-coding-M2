@@ -4,15 +4,25 @@ We made custom Node.js servers to showcase the IDOR vulnerability. The IDOR vuln
 
 ## Running the app
 
+### Installation
+
 The app uses the monorepo technology, therefore you can run both server form the single main `package.json` file at the root of this directory.
 
-- run the **unsafe** application:
+To install, just run:
+
+```shell
+npm install
+```
+
+### Run the app
+
+- To run the **unsafe** application, just run:
 
 ```shell
 npm run unsafe
 ```
 
-- run the **safe** application:
+- To run the **safe** application, just run:
 
 ```shell
 npm run safe
@@ -20,7 +30,7 @@ npm run safe
 
 Once everything is installed and the app is running, the page is accessible at this URL:
 
-http://localhost:3000/
+http://localhost:8080/
 
 ## The unsafe server
 

@@ -22,6 +22,7 @@ app.use(
     name: 'sid',
     resave: true,
     secret: 'secret',
+    saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60 * 2,
       sameSite: true,
